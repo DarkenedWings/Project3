@@ -108,6 +108,7 @@ namespace CharacterEditor
                 nudINT.Value = mList[lbxCharacters.SelectedIndex].GetIntelligence();
                 nudWIS.Value = mList[lbxCharacters.SelectedIndex].GetWisdom();
                 nudCHA.Value = mList[lbxCharacters.SelectedIndex].GetCharisma();
+                //I made changes
             }
         }
 
