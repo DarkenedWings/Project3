@@ -19,6 +19,7 @@ namespace CharacterEditor
         string mLastName;
         int mAge;
         string mRace;
+        string mKlass;
 
         Random RNG = new Random();
 
@@ -28,12 +29,13 @@ namespace CharacterEditor
 
         }
 
-        public Character(string first, string last, int age, string race, int str, int dex, int con, int intell, int wis, int cha)
+        public Character(string first, string last, int age, string race, string klass, int str, int dex, int con, int intell, int wis, int cha)
         {
             mFirstName = first;
             mLastName = last;
             mAge = age;
             mRace = race;
+            mKlass = klass;
             Str = str;
             Dex = dex;
             Con = con;
@@ -71,6 +73,11 @@ namespace CharacterEditor
         public string GetRace()
         {
             return mRace;
+        }
+
+        public string GetKlass()
+        {
+            return mKlass;
         }
         public int GetStrength()
         {

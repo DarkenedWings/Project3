@@ -8,5 +8,10 @@ namespace CharacterEditor
 {
     class Ranger : Character
     {
+        public Ranger(string first, string last, int age, string race, string klass, int str, int dex, int con, int intell, int wis, int cha) :
+            base(first, last, age, race, klass, str, dex, con, intell, wis, cha)
+        {
+
+        }
     }
 }

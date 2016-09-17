@@ -63,6 +63,12 @@
             this.actAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.actUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.actDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblCleUndead = new System.Windows.Forms.Label();
+            this.nudCleUndead = new System.Windows.Forms.NumericUpDown();
+            this.lblDruPetRace = new System.Windows.Forms.Label();
+            this.cmbDruPetRace = new System.Windows.Forms.ComboBox();
+            this.lblFigExtraFeats = new System.Windows.Forms.Label();
+            this.nudFigExtraFeats = new System.Windows.Forms.NumericUpDown();
             this.gbxInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAge)).BeginInit();
             this.gbxStats.SuspendLayout();
@@ -72,7 +78,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCON)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDEX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSTR)).BeginInit();
+            this.gbxSpcifics.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCleUndead)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFigExtraFeats)).BeginInit();
             this.SuspendLayout();
             // 
             // gbxInfo
@@ -96,6 +105,7 @@
             // 
             // cmbClass
             // 
+            this.cmbClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbClass.FormattingEnabled = true;
             this.cmbClass.Items.AddRange(new object[] {
             "Cleric",
@@ -111,9 +121,11 @@
             this.cmbClass.Name = "cmbClass";
             this.cmbClass.Size = new System.Drawing.Size(138, 24);
             this.cmbClass.TabIndex = 5;
+            this.cmbClass.SelectedIndexChanged += new System.EventHandler(this.cmbClass_SelectedIndexChanged);
             // 
             // cmbRace
             // 
+            this.cmbRace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRace.FormattingEnabled = true;
             this.cmbRace.Items.AddRange(new object[] {
             "Dwarf",
@@ -332,6 +344,12 @@
             // gbxSpcifics
             // 
             this.gbxSpcifics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.gbxSpcifics.Controls.Add(this.nudFigExtraFeats);
+            this.gbxSpcifics.Controls.Add(this.lblFigExtraFeats);
+            this.gbxSpcifics.Controls.Add(this.cmbDruPetRace);
+            this.gbxSpcifics.Controls.Add(this.lblDruPetRace);
+            this.gbxSpcifics.Controls.Add(this.nudCleUndead);
+            this.gbxSpcifics.Controls.Add(this.lblCleUndead);
             this.gbxSpcifics.Location = new System.Drawing.Point(31, 478);
             this.gbxSpcifics.Name = "gbxSpcifics";
             this.gbxSpcifics.Size = new System.Drawing.Size(253, 141);
@@ -378,14 +396,14 @@
             // menuNew
             // 
             this.menuNew.Name = "menuNew";
-            this.menuNew.Size = new System.Drawing.Size(181, 26);
+            this.menuNew.Size = new System.Drawing.Size(114, 26);
             this.menuNew.Text = "New";
             this.menuNew.Click += new System.EventHandler(this.menuNew_Click);
             // 
             // menuExit
             // 
             this.menuExit.Name = "menuExit";
-            this.menuExit.Size = new System.Drawing.Size(181, 26);
+            this.menuExit.Size = new System.Drawing.Size(114, 26);
             this.menuExit.Text = "Exit";
             this.menuExit.Click += new System.EventHandler(this.menuExit_Click);
             // 
@@ -402,7 +420,7 @@
             // actAdd
             // 
             this.actAdd.Name = "actAdd";
-            this.actAdd.Size = new System.Drawing.Size(181, 26);
+            this.actAdd.Size = new System.Drawing.Size(133, 26);
             this.actAdd.Text = "Add";
             this.actAdd.Click += new System.EventHandler(this.actAdd_Click);
             // 
@@ -411,13 +429,75 @@
             this.actUpdate.Name = "actUpdate";
             this.actUpdate.Size = new System.Drawing.Size(133, 26);
             this.actUpdate.Text = "Update";
+            this.actUpdate.Click += new System.EventHandler(this.actUpdate_Click);
             // 
             // actDelete
             // 
             this.actDelete.Name = "actDelete";
-            this.actDelete.Size = new System.Drawing.Size(181, 26);
+            this.actDelete.Size = new System.Drawing.Size(133, 26);
             this.actDelete.Text = "Delete";
             this.actDelete.Click += new System.EventHandler(this.actDelete_Click);
+            // 
+            // lblCleUndead
+            // 
+            this.lblCleUndead.AutoSize = true;
+            this.lblCleUndead.Location = new System.Drawing.Point(6, 36);
+            this.lblCleUndead.Name = "lblCleUndead";
+            this.lblCleUndead.Size = new System.Drawing.Size(120, 17);
+            this.lblCleUndead.TabIndex = 0;
+            this.lblCleUndead.Text = "Turn Unded Uses";
+            this.lblCleUndead.Visible = false;
+            // 
+            // nudCleUndead
+            // 
+            this.nudCleUndead.Location = new System.Drawing.Point(109, 73);
+            this.nudCleUndead.Name = "nudCleUndead";
+            this.nudCleUndead.Size = new System.Drawing.Size(137, 22);
+            this.nudCleUndead.TabIndex = 1;
+            this.nudCleUndead.Visible = false;
+            // 
+            // lblDruPetRace
+            // 
+            this.lblDruPetRace.AutoSize = true;
+            this.lblDruPetRace.Location = new System.Drawing.Point(9, 36);
+            this.lblDruPetRace.Name = "lblDruPetRace";
+            this.lblDruPetRace.Size = new System.Drawing.Size(66, 17);
+            this.lblDruPetRace.TabIndex = 2;
+            this.lblDruPetRace.Text = "Pet Race";
+            this.lblDruPetRace.Visible = false;
+            // 
+            // cmbDruPetRace
+            // 
+            this.cmbDruPetRace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDruPetRace.FormattingEnabled = true;
+            this.cmbDruPetRace.Items.AddRange(new object[] {
+            "Bear",
+            "Cat",
+            "Hawk",
+            "Wolf"});
+            this.cmbDruPetRace.Location = new System.Drawing.Point(109, 73);
+            this.cmbDruPetRace.Name = "cmbDruPetRace";
+            this.cmbDruPetRace.Size = new System.Drawing.Size(137, 24);
+            this.cmbDruPetRace.TabIndex = 3;
+            this.cmbDruPetRace.Visible = false;
+            // 
+            // lblFigExtraFeats
+            // 
+            this.lblFigExtraFeats.AutoSize = true;
+            this.lblFigExtraFeats.Location = new System.Drawing.Point(9, 36);
+            this.lblFigExtraFeats.Name = "lblFigExtraFeats";
+            this.lblFigExtraFeats.Size = new System.Drawing.Size(79, 17);
+            this.lblFigExtraFeats.TabIndex = 4;
+            this.lblFigExtraFeats.Text = "Extra Feats";
+            this.lblFigExtraFeats.Visible = false;
+            // 
+            // nudFigExtraFeats
+            // 
+            this.nudFigExtraFeats.Location = new System.Drawing.Point(109, 75);
+            this.nudFigExtraFeats.Name = "nudFigExtraFeats";
+            this.nudFigExtraFeats.Size = new System.Drawing.Size(137, 22);
+            this.nudFigExtraFeats.TabIndex = 5;
+            this.nudFigExtraFeats.Visible = false;
             // 
             // Form1
             // 
@@ -444,8 +524,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCON)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDEX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSTR)).EndInit();
+            this.gbxSpcifics.ResumeLayout(false);
+            this.gbxSpcifics.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCleUndead)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFigExtraFeats)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -488,6 +572,12 @@
         private System.Windows.Forms.ToolStripMenuItem actAdd;
         private System.Windows.Forms.ToolStripMenuItem actUpdate;
         private System.Windows.Forms.ToolStripMenuItem actDelete;
+        private System.Windows.Forms.NumericUpDown nudCleUndead;
+        private System.Windows.Forms.Label lblCleUndead;
+        private System.Windows.Forms.ComboBox cmbDruPetRace;
+        private System.Windows.Forms.Label lblDruPetRace;
+        private System.Windows.Forms.NumericUpDown nudFigExtraFeats;
+        private System.Windows.Forms.Label lblFigExtraFeats;
     }
 }
 
