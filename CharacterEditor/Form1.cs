@@ -29,6 +29,10 @@ namespace CharacterEditor
             visibleList.Add(cmbDruPetRace);
             visibleList.Add(lblFigExtraFeats);
             visibleList.Add(nudFigExtraFeats);
+            visibleList.Add(lblMonExtraAttacks);
+            visibleList.Add(nudMonExtraAttacks);
+            visibleList.Add(lblPalLayHands);
+            visibleList.Add(nudPalLayHands);
         }                   
 
         private void menuExit_Click(object sender, EventArgs e)
@@ -60,6 +64,7 @@ namespace CharacterEditor
                     mList.Add(new Cleric(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value, cmbRace.Text, klass, (int)nudSTR.Value,
                         (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value, (int)nudWIS.Value, (int)nudCHA.Value, 
                         (int) nudCleUndead.Value));
+                    nudCleUndead.Value = 0;
                     break;
                 case "Druid":
                     mList.Add(new Druid(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value, cmbRace.Text, klass, (int)nudSTR.Value,
@@ -75,11 +80,13 @@ namespace CharacterEditor
                     break;
                 case "Monk":
                     mList.Add(new Monk(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value, cmbRace.Text, klass, (int)nudSTR.Value,
-                        (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value, (int)nudWIS.Value, (int)nudCHA.Value));
+                        (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value, (int)nudWIS.Value, (int)nudCHA.Value, (int) nudMonExtraAttacks.Value));
+                    nudMonExtraAttacks.Value = 0;
                     break;
-                case "Paldin":
+                case "Paladin":
                     mList.Add(new Paladin(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value, cmbRace.Text, klass, (int)nudSTR.Value,
-                        (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value, (int)nudWIS.Value, (int)nudCHA.Value));
+                        (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value, (int)nudWIS.Value, (int)nudCHA.Value, (int) nudPalLayHands.Value));
+                    nudPalLayHands.Value = 0;
                     break;
                 case "Ranger":
                     mList.Add(new Ranger(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value, cmbRace.Text, klass, (int)nudSTR.Value,
@@ -122,8 +129,8 @@ namespace CharacterEditor
             txtF_Name.Text = "";
             txtL_Name.Text = "";
             nudAge.Value = 0;
-            cmbRace.ResetText();
-            cmbClass.Text = "";
+            cmbRace.SelectedIndex = -1;
+            cmbClass.SelectedIndex = -1;
             nudSTR.Value = 0;
             nudDEX.Value = 0;
             nudCON.Value = 0;
@@ -138,6 +145,10 @@ namespace CharacterEditor
                 mList.RemoveAt(lbxCharacters.SelectedIndex);
                 lbxCharacters.Items.RemoveAt(lbxCharacters.SelectedIndex);
             }
+
+            for (int i = 0; i < visibleList.Count; i++)
+                visibleList[i].Visible = false;
+
         }
         
         //clicking on a character in the lbx
@@ -170,8 +181,10 @@ namespace CharacterEditor
                         nudFigExtraFeats.Value = ((Fighter)mList[lbxCharacters.SelectedIndex]).GetFeats();
                         break;
                     case "Monk":
+                        nudMonExtraAttacks.Value = ((Monk)mList[lbxCharacters.SelectedIndex]).GetAttacks();
                         break;
-                    case "Paldin":
+                    case "Paladin":
+                        nudPalLayHands.Value = ((Paladin)mList[lbxCharacters.SelectedIndex]).GetHands();
                         break;
                     case "Ranger":
                         break;
@@ -200,32 +213,41 @@ namespace CharacterEditor
             if (lbxCharacters.SelectedIndex >= 0 && lbxCharacters.SelectedIndex < mList.Count)
             {
                 klass = cmbClass.Text;
+
+                lbxCharacters.Items.Insert(lbxCharacters.SelectedIndex, (txtF_Name.Text + " " + txtL_Name.Text));
+                lbxCharacters.SelectedIndex = lbxCharacters.SelectedIndex - 1;
+
                 switch (klass)
                 {
                     case "Cleric":
                         mList[lbxCharacters.SelectedIndex] = (new Cleric(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value,
                             cmbRace.Text, klass, (int)nudSTR.Value, (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value,
                             (int)nudWIS.Value, (int)nudCHA.Value, (int)nudCleUndead.Value));
+                        nudCleUndead.Value = 0;
                         break;
                     case "Druid":
                         mList[lbxCharacters.SelectedIndex] = (new Druid(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value,
                             cmbRace.Text, klass, (int)nudSTR.Value, (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value,
                             (int)nudWIS.Value, (int)nudCHA.Value, cmbDruPetRace.Text));
+                        cmbDruPetRace.SelectedIndex = -1;
                         break;
                     case "Fighter":
                         mList[lbxCharacters.SelectedIndex] = (new Fighter(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value,
                             cmbRace.Text, klass, (int)nudSTR.Value, (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value,
                             (int)nudWIS.Value, (int)nudCHA.Value, (int) nudFigExtraFeats.Value));
+                        nudFigExtraFeats.Value = 0;
                         break;
                     case "Monk":
                         mList[lbxCharacters.SelectedIndex] = (new Monk(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value,
                             cmbRace.Text, klass, (int)nudSTR.Value, (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value,
-                            (int)nudWIS.Value, (int)nudCHA.Value));
+                            (int)nudWIS.Value, (int)nudCHA.Value, (int)nudMonExtraAttacks.Value));
+                        nudMonExtraAttacks.Value = 0;
                         break;
-                    case "Paldin":
+                    case "Paladin":
                         mList[lbxCharacters.SelectedIndex] = (new Paladin(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value,
                             cmbRace.Text, klass, (int)nudSTR.Value, (int)nudDEX.Value, (int)nudCON.Value, (int)nudINT.Value,
-                            (int)nudWIS.Value, (int)nudCHA.Value));
+                            (int)nudWIS.Value, (int)nudCHA.Value, (int)nudPalLayHands.Value));
+                        nudPalLayHands.Value = 0;
                         break;
                     case "Ranger":
                         mList[lbxCharacters.SelectedIndex] = (new Ranger(txtF_Name.Text, txtL_Name.Text, (int)nudAge.Value,
@@ -250,7 +272,21 @@ namespace CharacterEditor
                     default:
                         break;
                 }
+                lbxCharacters.SelectedIndex += 1;
+                lbxCharacters.Items.RemoveAt(lbxCharacters.SelectedIndex);
             }
+
+            txtF_Name.Text = "";
+            txtL_Name.Text = "";
+            nudAge.Value = 0;
+            cmbRace.SelectedIndex = -1;
+            cmbClass.SelectedIndex = -1;
+            nudSTR.Value = 0;
+            nudDEX.Value = 0;
+            nudCON.Value = 0;
+            nudINT.Value = 0;
+            nudWIS.Value = 0;
+            nudCHA.Value = 0;
         }
 
         private void cmbClass_SelectedIndexChanged(object sender, EventArgs e)
@@ -283,10 +319,23 @@ namespace CharacterEditor
                             visibleList[i].Visible = true;
                     }
                     break;
+                case "Monk":
+                    for (int i = 0; i < visibleList.Count; i++)
+                    {
+                        if (visibleList[i].Name.Contains("Mon"))
+                            visibleList[i].Visible = true;
+                    }
+                    break;
+                case "Paladin":
+                    for (int i = 0; i < visibleList.Count; i++)
+                    {
+                        if (visibleList[i].Name.Contains("Pal"))
+                            visibleList[i].Visible = true;
+                    }
+                    break;
                 default:
                     break;
             }
-
         }
     }
 }
