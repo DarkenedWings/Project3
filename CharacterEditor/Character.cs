@@ -54,7 +54,7 @@ namespace CharacterEditor
             Wis = RNG.Next(1, 25);
             Cha = RNG.Next(1, 25);
         }
-
+        
         public string GetFirstName()
         {
             return mFirstName;
